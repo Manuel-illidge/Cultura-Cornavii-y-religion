@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espiritualidad Cornavi: Un Análisis de Datos con IA</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Font: Roboto for Material Design feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Markdown Parser for AI responses -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- PLAN NARRATIVO & JUSTIFICACIÓN VISUAL (COMENTARIOS OCULTOS) -->
+    <!--
+    INTEGRACIÓN GEMINI API:
+    1. "Oráculo de Viroconium": Chatbot con persona histórica (Druida Cornavi).
+    2. "Profundizar Conocimiento": Generación de texto explicativo adicional bajo demanda.
+    
+    PLAN NARRATIVO ORIGINAL MANTENIDO:
+    1. Introducción: Contexto geográfico.
+    2. El Panteón: Gráfico de Barras.
+    3. Cultura Material: Gráfico de Donut.
+    4. Sincretismo: Gráfico de Radar.
+    5. El Ritual: Diagrama HTML.
+    -->
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+
+        /* Chart Container Styling Rules - Strictly Enforced */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width constraint */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px; /* Max height constraint */
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Utility for Diagram Arrows (CSS only, no SVG) */
+        .arrow-down {
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #0F766E;
+            margin: 10px auto;
+        }
+
+        .step-card {
+            border-left: 4px solid #F59E0B;
+            transition: transform 0.2s;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* AI Feature Styles */
+        .ai-sparkle {
+            animation: sparkle 2s infinite;
+        }
+        @keyframes sparkle {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #0F766E;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 1s linear infinite; /* Safari */
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 relative">
+
+    <!-- Header / Hero Section -->
+    <header class="bg-[#0F766E] text-white shadow-lg relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/celtic-knot.png')]"></div>
+        <div class="container mx-auto px-6 py-12 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Los Cornavi: Espiritualidad en la Edad del Hierro</h1>
+            <p class="text-xl font-light text-gray-100 max-w-2xl mx-auto">
+                Un análisis visual de las creencias, deidades y prácticas rituales de la tribu celta que dominó las actuales West Midlands de Inglaterra.
+            </p>
+            <button onclick="toggleOracle()" class="mt-6 bg-[#F59E0B] hover:bg-yellow-500 text-white font-bold py-2 px-6 rounded-full shadow-lg transition transform hover:scale-105 flex items-center mx-auto gap-2">
+                <span>✨</span> Consultar al Oráculo de Viroconium
+            </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 space-y-12">
+
+        <!-- SECTION 1: CONTEXT -->
+        <section class="bg-white rounded-lg shadow-md p-8 relative">
+            <div class="flex justify-between items-center mb-4 border-b-2 border-[#F59E0B] pb-2">
+                <h2 class="text-2xl font-bold text-[#0F766E]">1. El Paisaje Sagrado</h2>
+                <button onclick="expandTopic('geografia_sagrada', 'context-ai')" class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full hover:bg-indigo-200 transition flex items-center gap-1">
+                    <span>✨</span> Profundizar
+                </button>
+            </div>
+            
+            <p class="mb-6 text-gray-700 leading-relaxed">
+                Los Cornavi habitaban una región boscosa y pantanosa centrada en la actual Shropshire y Cheshire. Su capital, <strong>Viroconium Cornoviorum</strong> (Wroxeter), se convirtió en un importante centro de fusión cultural. A diferencia de la religión romana centrada en templos estatales, la espiritualidad Cornavi era <strong>animista y ligada al paisaje</strong>: ríos, ciénagas y arboledas eran considerados liminales (puertas al otro mundo).
+            </p>
+            
+            <!-- AI Output Container -->
+            <div id="context-ai" class="hidden mb-6 bg-indigo-50 p-4 rounded-lg text-sm text-gray-800 border border-indigo-100"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                    <div class="text-3xl mb-2 text-[#BE123C] font-bold">Viroconium</div>
+                    <div class="text-sm text-gray-600">Centro Ceremonial Urbano</div>
+                </div>
+                <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                    <div class="text-3xl mb-2 text-[#0F766E] font-bold">The Wrekin</div>
+                    <div class="text-sm text-gray-600">Colina Sagrada (Hillfort)</div>
+                </div>
+                <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                    <div class="text-3xl mb-2 text-[#F59E0B] font-bold">Mercurio</div>
+                    <div class="text-sm text-gray-600">Deidad más popular (Sincretismo)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE PANTHEON (Bar Chart) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="order-2 lg:order-1">
+                <div class="chart-container">
+                    <canvas id="deityChart"></canvas>
+                </div>
+            </div>
+            <div class="order-1 lg:order-2 bg-white p-6 rounded-lg shadow-sm">
+                <div class="flex justify-between items-center mb-4 border-b-2 border-[#F59E0B] pb-2">
+                    <h2 class="text-2xl font-bold text-[#0F766E]">2. El Panteón Cornavi</h2>
+                    <button onclick="expandTopic('panteon_celta', 'deity-ai')" class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full hover:bg-indigo-200 transition flex items-center gap-1">
+                        <span>✨</span> Analizar
+                    </button>
+                </div>
+                <p class="mb-4 text-gray-700">
+                    La evidencia arqueológica, basada en inscripciones y estatuillas encontradas en la región Cornavi, muestra una fuerte preferencia por deidades que protegen la prosperidad local y la guerra.
+                </p>
+                <p class="mb-4 text-gray-700">
+                    Destaca el <strong>Cernunnos</strong> (el dios astado de la naturaleza) y la adaptación local de <strong>Marte (Mars Ocelus)</strong>, un dios guerrero fusionado con un protector local. El gráfico muestra la frecuencia relativa de hallazgos asociados a estas entidades.
+                </p>
+                
+                <!-- AI Output Container -->
+                <div id="deity-ai" class="hidden mb-4 bg-indigo-50 p-4 rounded-lg text-sm text-gray-800 border border-indigo-100"></div>
+
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600">
+                    <li><strong>Genius Loci:</strong> Espíritus protectores del lugar específico.</li>
+                    <li><strong>Mars Ocelus:</strong> Ejemplo perfecto de <em>Interpretatio Romana</em>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 3: MATERIAL CULTURE (Doughnut Chart) -->
+        <section class="bg-white rounded-lg shadow-md p-8">
+            <h2 class="text-2xl font-bold text-[#0F766E] mb-4 border-b-2 border-[#F59E0B] pb-2">3. Evidencia Material del Ritual</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <p class="mb-4 text-gray-700">
+                        ¿Qué dejaban los Cornavi a sus dioses? A diferencia de los romanos que preferían incienso y vino, los celtas practicaban la deposición ritual.
+                    </p>
+                    <p class="mb-4 text-gray-700">
+                        El gráfico desglosa los tipos de ofrendas votivas recuperadas en contextos religiosos. Las <strong>Cabezas de Piedra</strong> son particularmente significativas; para los celtas, la cabeza era el receptáculo del alma, y esculpirlas en piedra era una forma de veneración ancestral o protección.
+                    </p>
+                    <div class="bg-[#F3F4F6] p-4 rounded-l border-l-4 border-[#BE123C] mb-4">
+                        <strong class="text-[#BE123C]">Dato Clave:</strong> La alta presencia de armamento en ríos sugiere rituales de "muerte" del objeto antes de ofrecerlo al agua.
+                    </div>
+                    <button onclick="expandTopic('ofrendas_rituales', 'artifact-ai')" class="w-full text-xs bg-indigo-100 text-indigo-700 px-3 py-2 rounded hover:bg-indigo-200 transition flex justify-center items-center gap-2">
+                        <span>✨</span> ¿Por qué cabezas de piedra? (Preguntar a IA)
+                    </button>
+                    <!-- AI Output Container -->
+                    <div id="artifact-ai" class="hidden mt-4 bg-indigo-50 p-4 rounded-lg text-sm text-gray-800 border border-indigo-100"></div>
+                </div>
+                <div>
+                    <div class="chart-container">
+                        <canvas id="artifactChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: THE HEAD CULT (Process Flow) -->
+        <section class="bg-white rounded-lg shadow-md p-8">
+            <h2 class="text-2xl font-bold text-[#0F766E] mb-6 border-b-2 border-[#F59E0B] pb-2">4. El "Culto a la Cabeza"</h2>
+            <p class="mb-8 text-gray-700 text-center max-w-3xl mx-auto">
+                Una de las características más distintivas y macabras de la religión Cornavi era la veneración de la cabeza humana. Este diagrama ilustra el proceso ritual teórico basado en hallazgos en Viroconium.
+            </p>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 md:space-x-4">
+                <!-- Step 1 -->
+                <div class="step-card bg-gray-50 p-6 rounded shadow w-full md:w-1/3 text-center">
+                    <div class="text-4xl text-[#0F766E] mb-2 font-bold">I</div>
+                    <h3 class="font-bold text-lg mb-2">Separación</h3>
+                    <p class="text-sm text-gray-600">La cabeza se separa del cuerpo (enemigo o ancestro venerado). Se cree que contiene la fuerza vital.</p>
+                </div>
+
+                <!-- Arrow Mobile (Down) / Desktop (Right) -->
+                <div class="text-[#F59E0B] text-2xl font-bold md:hidden">▼</div>
+                <div class="text-[#F59E0B] text-2xl font-bold hidden md:block">▶</div>
+
+                <!-- Step 2 -->
+                <div class="step-card bg-gray-50 p-6 rounded shadow w-full md:w-1/3 text-center">
+                    <div class="text-4xl text-[#0F766E] mb-2 font-bold">II</div>
+                    <h3 class="font-bold text-lg mb-2">Preservación</h3>
+                    <p class="text-sm text-gray-600">Tratamiento con aceites o cal (en caso de trofeos) o recreación artística tallada en piedra arenisca local.</p>
+                </div>
+
+                <!-- Arrow Mobile (Down) / Desktop (Right) -->
+                <div class="text-[#F59E0B] text-2xl font-bold md:hidden">▼</div>
+                <div class="text-[#F59E0B] text-2xl font-bold hidden md:block">▶</div>
+
+                <!-- Step 3 -->
+                <div class="step-card bg-gray-50 p-6 rounded shadow w-full md:w-1/3 text-center">
+                    <div class="text-4xl text-[#0F766E] mb-2 font-bold">III</div>
+                    <h3 class="font-bold text-lg mb-2">Deposición Liminal</h3>
+                    <p class="text-sm text-gray-600">Colocación en entradas de santuarios, pozos o puertas para actuar como guardianes sobrenaturales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: SYNCRETISM (Radar Chart) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
+            <div class="order-1">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h2 class="text-2xl font-bold text-[#0F766E] mb-4 border-b-2 border-[#F59E0B] pb-2">5. Sincretismo Romano-Celta</h2>
+                    <p class="mb-4 text-gray-700">
+                        Tras la conquista romana, los Cornavi no abandonaron sus dioses, los adaptaron. Este gráfico de radar compara los atributos de la religión Cornavi nativa frente al culto Imperial Romano estándar.
+                    </p>
+                    <p class="mb-4 text-gray-700">
+                        Nótese cómo los Cornavi mantuvieron una conexión extremadamente alta con la <strong>Naturaleza</strong> y el <strong>Misticismo</strong>, mientras adoptaban solo parcialmente la estructura formal romana. El resultado fue una religión híbrida única en Britania.
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-4">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 bg-[#0F766E] inline-block mr-2 rounded-full"></span> Cornavi Nativo
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 bg-[#F59E0B] inline-block mr-2 rounded-full"></span> Romano Imperial
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-2">
+                <div class="chart-container">
+                    <canvas id="syncretismChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-sm py-8 border-t border-gray-300">
+            <p>© 2023 Infografía Histórica - Cultura Cornavi</p>
+            <p class="mt-2">Datos basados en hallazgos arqueológicos de Wroxeter y el valle del Severn.</p>
+            <p class="mt-1 italic text-xs">Potenciado con Google Gemini API ✨</p>
+        </footer>
+
+    </main>
+
+    <!-- ORACLE MODAL -->
+    <div id="oracle-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="bg-[#0F766E] p-4 flex justify-between items-center text-white">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <span>🔮</span> El Oráculo de Viroconium
+                </h3>
+                <button onclick="toggleOracle()" class="text-white hover:text-gray-200 text-2xl">&times;</button>
+            </div>
+            <div class="p-4 overflow-y-auto flex-grow bg-gray-50 min-h-[300px]" id="oracle-chat-history">
+                <div class="bg-blue-100 p-3 rounded-lg rounded-tl-none mb-2 text-sm text-gray-800 max-w-[85%]">
+                    Salve, viajero. Soy el guardián de las antiguas tradiciones Cornavi. Pregúntame sobre nuestro destino, nuestros dioses o nuestros rituales.
+                </div>
+            </div>
+            <div class="p-4 border-t border-gray-200 bg-white">
+                <div class="flex gap-2">
+                    <input type="text" id="oracle-input" placeholder="Pregunta al druida..." class="flex-grow border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0F766E]">
+                    <button onclick="askOracle()" class="bg-[#0F766E] text-white px-4 py-2 rounded hover:bg-[#064e49] transition">
+                        Enviar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- GEMINI API CONFIGURATION ---
+        const apiKey = ""; // System provides this at runtime
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        // Helper to call Gemini
+        async function callGeminiAPI(prompt, systemInstruction = "") {
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: {
+                    maxOutputTokens: 300, // Keep responses concise
+                    temperature: 0.7
+                }
+            };
+            
+            if (systemInstruction) {
+                payload.systemInstruction = { parts: [{ text: systemInstruction }] };
+            }
+
+            // Exponential backoff retry logic
+            const maxRetries = 3;
+            let attempt = 0;
+            
+            while (attempt < maxRetries) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const result = await response.json();
+                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "Lo siento, los espíritus están silenciosos hoy. Intenta de nuevo.";
+                } catch (e) {
+                    attempt++;
+                    console.warn(`Intento ${attempt} fallido:`, e);
+                    if (attempt === maxRetries) return "Error de conexión con el Oráculo.";
+                    await new Promise(r => setTimeout(r, 1000 * Math.pow(2, attempt)));
+                }
+            }
+        }
+
+        // --- ORACLE LOGIC ---
+        function toggleOracle() {
+            const modal = document.getElementById('oracle-modal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('oracle-input').focus();
+            }
+        }
+
+        async function askOracle() {
+            const inputEl = document.getElementById('oracle-input');
+            const chatContainer = document.getElementById('oracle-chat-history');
+            const question = inputEl.value.trim();
+            
+            if (!question) return;
+
+            // Add user message
+            chatContainer.innerHTML += `
+                <div class="flex justify-end mb-2">
+                    <div class="bg-[#F59E0B] text-white p-3 rounded-lg rounded-tr-none text-sm max-w-[85%]">
+                        ${question}
+                    </div>
+                </div>`;
+            
+            inputEl.value = '';
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // Add loading state
+            const loadingId = 'loader-' + Date.now();
+            chatContainer.innerHTML += `
+                <div id="${loadingId}" class="flex justify-start mb-2">
+                    <div class="bg-gray-200 p-3 rounded-lg rounded-tl-none text-sm">
+                        <span class="loader border-gray-400 border-t-gray-600 w-4 h-4"></span> Consultando a los ancestros...
+                    </div>
+                </div>`;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // Call API
+            const systemPrompt = "Actúa como un sabio druida o anciano de la tribu Cornovii en la Britania Romana (siglo II d.C.). Responde a las preguntas de los viajeros con un tono místico, sabio y ligeramente críptico, haciendo referencia a la naturaleza, los bosques de Shropshire, el río Severn (Sabrina), y dioses como Cernunnos o Mars Ocelus. Mantén las respuestas breves (máximo 3 frases). Si te preguntan por tecnología moderna, muestra confusión.";
+            
+            const answer = await callGeminiAPI(question, systemPrompt);
+
+            // Remove loader and add response
+            document.getElementById(loadingId).remove();
+            
+            // Format markdown to HTML (simple bold/italic)
+            const formattedAnswer = marked.parse(answer);
+
+            chatContainer.innerHTML += `
+                <div class="flex justify-start mb-2">
+                    <div class="bg-blue-100 p-3 rounded-lg rounded-tl-none text-sm text-gray-800 max-w-[85%] prose prose-sm">
+                        ${formattedAnswer}
+                    </div>
+                </div>`;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Allow 'Enter' to send in Oracle
+        document.getElementById('oracle-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') askOracle();
+        });
+
+        // --- EXPAND TOPIC LOGIC ---
+        async function expandTopic(topicKey, outputId) {
+            const outputDiv = document.getElementById(outputId);
+            
+            // If already showing, toggle off
+            if (!outputDiv.classList.contains('hidden') && outputDiv.innerHTML !== "") {
+                outputDiv.classList.add('hidden');
+                return;
+            }
+
+            outputDiv.classList.remove('hidden');
+            outputDiv.innerHTML = '<div class="flex items-center gap-2"><span class="loader"></span> Analizando registros históricos...</div>';
+
+            const prompts = {
+                'geografia_sagrada': 'Explica brevemente la importancia espiritual de la geografía (pantanos, colinas como The Wrekin) para la tribu Cornovii y por qué la ubicación de Viroconium era estratégica y sagrada.',
+                'panteon_celta': 'Analiza sociológicamente por qué una tribu guerrera y agrícola como los Cornovii veneraría tanto a una deidad de la naturaleza (Cernunnos) como a un dios guerrero híbrido (Mars Ocelus).',
+                'ofrendas_rituales': 'Explica el significado profundo detrás del "Culto a la Cabeza" en la cultura celta británica. ¿Por qué la cabeza y no el corazón? ¿Qué implicaba esto para sus enemigos?'
+            };
+
+            const prompt = prompts[topicKey] || "Dame un dato curioso sobre los Cornovii.";
+            const systemPrompt = "Eres un historiador experto en la Edad del Hierro británica y la ocupación romana. Provee un análisis conciso, educativo y fascinante. Usa formato Markdown.";
+
+            const analysis = await callGeminiAPI(prompt, systemPrompt);
+            
+            outputDiv.innerHTML = marked.parse(analysis);
+        }
+
+        // --- UTILITY FUNCTIONS ---
+
+        // Function to split long labels into arrays for Chart.js (16 char limit)
+        function wrapLabel(str) {
+            if (str.length <= 16) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= 16) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // Common Tooltip Configuration for Multi-line Labels
+        const commonTooltipOptions = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: DEITY POPULARITY (BAR CHART) ---
+        const ctxDeity = document.getElementById('deityChart').getContext('2d');
+        
+        // Data processing for wrapping labels
+        const rawDeityLabels = ['Genius Loci (Espíritus Locales)', 'Mars Ocelus (Guerrero)', 'Cernunnos (Naturaleza)', 'Epona (Caballos)', 'Deidades Romanas Puras'];
+        const processedDeityLabels = rawDeityLabels.map(wrapLabel);
+
+        new Chart(ctxDeity, {
+            type: 'bar',
+            data: {
+                labels: processedDeityLabels,
+                datasets: [{
+                    label: 'Frecuencia de Dedicatorias (%)',
+                    data: [35, 25, 20, 10, 10], 
+                    backgroundColor: [
+                        '#0F766E', // Teal (Local Spirits)
+                        '#BE123C', // Red (Mars/War)
+                        '#047857', // Green (Nature)
+                        '#F59E0B', // Gold (Horses)
+                        '#9CA3AF'  // Grey (Roman Standard)
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltipOptions,
+                    title: {
+                        display: true,
+                        text: 'Deidades Más Veneradas en Territorio Cornavi',
+                        font: { size: 16 }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Hallazgos Relativos (%)' }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: ARTIFACT DISTRIBUTION (DOUGHNUT CHART) ---
+        const ctxArtifact = document.getElementById('artifactChart').getContext('2d');
+
+        const rawArtifactLabels = ['Cabezas de Piedra', 'Armas (Votivas)', 'Cerámica Ritual', 'Huesos de Animales', 'Joyeria/Torques'];
+        const processedArtifactLabels = rawArtifactLabels.map(wrapLabel);
+
+        new Chart(ctxArtifact, {
+            type: 'doughnut',
+            data: {
+                labels: processedArtifactLabels,
+                datasets: [{
+                    data: [15, 30, 25, 20, 10],
+                    backgroundColor: [
+                        '#F59E0B', // Gold (Head/Stone - sacred)
+                        '#BE123C', // Red (Weapons/War)
+                        '#0F766E', // Teal (Pottery)
+                        '#374151', // Dark Grey (Bones)
+                        '#6B7280'  // Light Grey (Jewelry)
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: commonTooltipOptions,
+                    title: {
+                        display: true,
+                        text: 'Composición de Ofrendas',
+                        font: { size: 16 }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 3: SYNCRETISM ATTRIBUTES (RADAR CHART) ---
+        const ctxSyncretism = document.getElementById('syncretismChart').getContext('2d');
+
+        const rawRadarLabels = ['Conexión Natural', 'Antropomorfismo', 'Culto Estatal', 'Sacrificio Animal', 'Culto a la Cabeza'];
+        const processedRadarLabels = rawRadarLabels.map(wrapLabel);
+
+        new Chart(ctxSyncretism, {
+            type: 'radar',
+            data: {
+                labels: processedRadarLabels,
+                datasets: [{
+                    label: 'Cultura Cornavi',
+                    data: [90, 40, 20, 80, 95], // High nature, low human-form, low state, high head cult
+                    fill: true,
+                    backgroundColor: 'rgba(15, 118, 110, 0.2)', // Teal transparent
+                    borderColor: '#0F766E',
+                    pointBackgroundColor: '#0F766E',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#0F766E'
+                }, {
+                    label: 'Influencia Romana',
+                    data: [30, 95, 90, 60, 10], // Low nature, high human-form, high state, no head cult
+                    fill: true,
+                    backgroundColor: 'rgba(245, 158, 11, 0.2)', // Gold transparent
+                    borderColor: '#F59E0B',
+                    pointBackgroundColor: '#F59E0B',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#F59E0B'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                elements: {
+                    line: { borderWidth: 3 }
+                },
+                scales: {
+                    r: {
+                        angleLines: { display: false },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: { backdropColor: 'transparent' } // Cleaner look
+                    }
+                },
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    title: {
+                        display: true,
+                        text: 'Perfil Cultural: Nativo vs. Romano',
+                        font: { size: 16 }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
